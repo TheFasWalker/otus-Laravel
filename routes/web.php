@@ -17,3 +17,6 @@ Route::get('/user',function(){
 Route::get('/static', function(){
     return view('Pages.StaticPage');
 });
+Route::get('/base', function(){
+    return view('welcome');
+});
