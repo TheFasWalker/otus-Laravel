@@ -15,7 +15,7 @@ return new class extends Migration
              $table->foreignId('role_id')
               ->nullable()
               ->after('login')
-              ->references('id')->on('role')
+              ->constrained('role')
               ->onUpdate('cascade') 
               ->onDelete('set null');
         });

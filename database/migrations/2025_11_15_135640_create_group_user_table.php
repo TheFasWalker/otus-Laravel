@@ -14,15 +14,9 @@ return new class extends Migration
         Schema::create('group_user', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')
-                ->references('id')
-                ->on('users')
-                ->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
-            $table->foreignId('group_id')
-                ->references('id')
-                ->on('posts')
-                ->cascadeOnDelete();
+            $table->foreignId('group_id')->constrained('posts')->cascadeOnDelete();
 
             $table->timestamps();
         });
