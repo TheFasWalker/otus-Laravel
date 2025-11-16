@@ -16,12 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-            // 'name' => 'Test User',
-            // 'email' => 'test@example.com',
-        // ]);
         $adminRoleId = DB::table('role')->where('name', 'admin')->value('id');
         $userRoleId = DB::table('role')->where('name','user')->value('id');
 
