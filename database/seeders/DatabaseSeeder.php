@@ -35,6 +35,9 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create([
             'role_id' => $userRoleId,
         ]);
+        $this->call([
+            PostSeeder::class
+        ]);
 
     }
 }
