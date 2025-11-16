@@ -16,8 +16,8 @@ class PostSeeder extends Seeder
     public function run(): void
     {
         $faker = Factory::create('ru_RU');
-        $usersId = DB::table('users')->pluck('id')->toArray();
-        if(empty($usersId)){
+        $users = DB::table('users')->pluck('id');
+        if($users->isEmpty()){
             $this->command->error('Нет пользователей в базе');
             return;
         }
@@ -32,17 +32,14 @@ class PostSeeder extends Seeder
         }
         DB::table('posts')->insert($posts);
 
-        $postsIds = DB::table('posts')->pluck('id')->toArray();
+        $postsIds = DB::table('posts')->pluck('id');
 
         $relations = [];
 
         foreach ($postsIds as $postId){
-            $authorCount = rand(1, min(3, count($usersId)));
-            $selectedAuthors = array_rand(array_flip($usersId), $authorCount);
+            $authorCount = rand(1, min(3, $users->count()));
+            $selectedAuthors = $users->random($authorCount);
 
-            if(!is_array($selectedAuthors)){
-                $selectedAuthors = [$selectedAuthors];
-            }
             foreach($selectedAuthors as $authorId){
                 $relations[] =[
                     'post_id'=>$postId,
@@ -54,6 +51,7 @@ class PostSeeder extends Seeder
 
             if(count($relations) >= 10){
                 DB::table('post_user')->insert($relations);
+                $relations = [];
             }
         }
         if(!empty($relations)){
