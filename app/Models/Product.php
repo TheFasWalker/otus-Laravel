@@ -19,4 +19,23 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+    public function attachTags(array $tagIds): void
+    {
+        $this->tags()->syncWithoutDetaching($tagIds);
+    }
+
+    public function detachTags(array $tagIds = []): void
+    {
+        if (empty($tagIds)) {
+            $this->tags()->detach();
+        } else {
+            $this->tags()->detach($tagIds);
+        }
+    }
+
+    public function updateTags(array $tagIds)
+    {
+        $this->tags()->sync($tagIds);
+    }
 }
