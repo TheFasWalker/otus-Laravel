@@ -19,6 +19,10 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'product_tags');
+    }
 
     public function attachTags(array $tagIds): void
     {

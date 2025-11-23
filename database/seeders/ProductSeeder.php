@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Tag;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,8 @@ class ProductSeeder extends Seeder
     {
         $faker = Factory::create('ru_RU');
         $categories = Category::pluck('id');
+        $tags = Tag::pluck('id');
+
         $products = [];
         for ($i = 1; $i <= 20; $i++) {
             $products[] = [
@@ -32,10 +35,36 @@ class ProductSeeder extends Seeder
                 'updated_at' => now(),
             ];
         }
+
          Product::insert($products);
-         $this->command->info('сидирование постов завершено');
+
+         $this->attachTagsToProducts($tags);
+         
+         $this->command->info('сидирование товаров завершено');
 
     }
+
+    private function attachTagsToProducts($tags)
+    {
+        $products = Product::all();
+        
+        foreach($products as $product){
+            $randomTags = $this->getRandomTags($tags);
+            $product->tags()->attach($randomTags);
+        }
+    }
+
+    private function getRandomTags($tags): array
+    {
+        $tagsCount = count($tags);
+        
+        $numberOfTags = rand(1, min(4, $tagsCount));
+        
+        $shuffledTags = $tags->shuffle();
+        
+        return $shuffledTags->take($numberOfTags)->toArray();
+    }
+
     private function generateProductTitle($faker, int $index): string
     {
         $productTypes = [

@@ -20,7 +20,9 @@ return new class extends Migration
         });
         DB::table('tags')->insert([
             ['name'=>'#tag1','description'=>'Описание для 1 тэга'],
-            ['name'=>'#tag2','description'=>'']
+            ['name'=>'#tag2','description'=>''],
+            ['name'=>'#tag3','description'=>'Описание для 3 тэга'],
+            ['name'=>'#tag4','description'=>'']
         ]);
     }
 
