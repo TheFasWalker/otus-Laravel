@@ -42,4 +42,9 @@ class Product extends Model
     {
         $this->tags()->sync($tagIds);
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

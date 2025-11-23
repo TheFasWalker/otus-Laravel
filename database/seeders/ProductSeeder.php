@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Country;
 use App\Models\Product;
 use App\Models\Tag;
 use Faker\Factory;
@@ -19,6 +20,7 @@ class ProductSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $categories = Category::pluck('id');
         $tags = Tag::pluck('id');
+        $countries = Country::pluck('id');
 
         $products = [];
         for ($i = 1; $i <= 20; $i++) {
@@ -33,6 +35,7 @@ class ProductSeeder extends Seeder
                 'category_id' => $faker->randomElement($categories),
                 'created_at' => now(),
                 'updated_at' => now(),
+                'country_id'=>$countries->random()
             ];
         }
 
