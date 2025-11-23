@@ -6,15 +6,18 @@
         <ul
           class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"
         >
+
         <x-general.aside.linkComponent
-          text="Страница пользователя"
-          :href=" route('lk') " />
+          text="Страны производители"
+          :href=" route('admin.country') " />
         <x-general.aside.linkComponent
-          text="Страница товара"
-          :href="route('product.page')" />
+          text="Список тэгов"
+          :href=" route('admin.tags') " />        
         <x-general.aside.linkComponent
-          text="Каталог"
-          :href="route('catalog')" />
+          text="Список продуктов"
+          :href=" route('admin.products') " />
+        </ul>
+
       </div>
       <div
         class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20">
