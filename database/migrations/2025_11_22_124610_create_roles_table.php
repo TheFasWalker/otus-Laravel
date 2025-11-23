@@ -20,7 +20,7 @@ return new class extends Migration
         });
         DB::table('roles')->insert([
             ['name'=>'admin', 'description'=>'Полные права'],
-            ['name'=>'moder','description'=>'Пользователь. Может что то купить'],
+            ['name'=>'user','description'=>'Пользователь. Может что то купить'],
             ['name'=>'manager','description'=>'Может добавлять и удалять товары'],
             ['name'=>'content','description'=>'Может изменять наполнение по контенту']
         ]);

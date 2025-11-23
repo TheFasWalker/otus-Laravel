@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('article');
             $table->longText('description');
-            $table->string('preview');
+            $table->string('preview')->nullable();
             $table->integer('count')->default(0);
-            $table->integer('discout')->default(0);
+            $table->integer('discount')->default(0);
             $table->integer('cost')->default(0);
             $table->timestamps();
         });

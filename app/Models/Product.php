@@ -12,7 +12,7 @@ class Product extends Model
         'description',
         'preview',
         'count',
-        'discout',
+        'discount',
         'cost',
     ];
 
