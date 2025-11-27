@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/', function(){
     return view('pages.HomePage');
-});
+})->name('home');
 Route::get('/catalog',function(){
     return view('pages.CatalogPage');
 })->name('catalog');
@@ -31,7 +31,7 @@ Route::get('/lk',function(){
     return view('pages.UserPage');
 })->name('lk');
 
-Route::group(['prefix'=>'/admin','as'=>'admin.'],function(){
+Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verified']],function(){
     Route::get('/',[HomeController::class,'index'])->name('home');
     Route::group(['prefix'=>'/country'],function(){
         Route::get('/',[CountryController::class,'index'])->name('country');
