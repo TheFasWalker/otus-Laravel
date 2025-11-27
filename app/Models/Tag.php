@@ -13,8 +13,4 @@ class Tag extends Model
         return $this->belongsToMany(Product::class,'product_tags');
     }
 
-    public function findProductsByTag($query, string $name)
-    {
-        return $query->where('name','like', "%{$name}%");
-    }
 }
