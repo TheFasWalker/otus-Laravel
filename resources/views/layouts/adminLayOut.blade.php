@@ -14,8 +14,7 @@
             <x-general.header/>
             <x-admin.general.aside/>
             <main class=" md:ml-64 pt-20 h-screen">
-                <div class="p-4">
-                    ssss
+                <div class="p-4">                    
                     @yield("content")
                 </div>
             </main>
