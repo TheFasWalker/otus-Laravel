@@ -59,46 +59,6 @@ class User extends Authenticatable
         return $this->hasMany(BasketProducts::class);
     }
 
-    public function addToBasket(int $productId, int $count = 1)
-    {
-        if (!Product::where('id', $productId)->exists()) {
-            return null;
-        }
-
-        $basketItem = $this->basketProducts()
-            ->where('product_id', $productId)
-            ->first();
-
-        if ($basketItem) {
-            $basketItem->incrementCount($count);
-            return $basketItem->fresh();
-        }
-
-        return $this->basketProducts()->create([
-            'product_id' => $productId,
-            'count' => max(1, $count),
-        ]);
-    }
-
-    public function decrementBasketItem(int $productId, int $amount = 1): bool
-    {
-        $basketItem = $this->basketProducts()
-            ->where('product_id', $productId)
-            ->first();
-
-        if (!$basketItem) {
-            return false;
-        }
-
-        return $basketItem->decrementCount($amount);
-    }
-
-    public function removeFromBasket(int $productId): bool
-    {
-        return $this->basketProducts()
-            ->where('product_id', $productId)
-            ->delete();
-    }
 
     public function clearBasket(): void
     {
