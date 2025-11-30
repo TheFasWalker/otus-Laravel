@@ -34,4 +34,9 @@ class TagsServece
             'description' => $data['description'] ?? null,
         ]);
     }
+
+    public function deleteTagById(int $id):bool
+    {
+        return $this->tagRepo->deteleById($id);
+    }
 }

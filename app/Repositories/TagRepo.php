@@ -26,4 +26,10 @@ class TagRepo
     {
         return Tag::where('name', $name)->first();
     }
+
+    public function deteleById(int $id):bool
+    {
+        $tag= Tag::findOrFail($id);
+        return $tag->delete();
+    }
 }

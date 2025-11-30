@@ -18,9 +18,13 @@
                   <span class="px-4 py-3">{{ $tag->description }}</span> 
                   <div class="grid grid-cols-2 items-center ">
                     <a href="{{ route('admin.tag.edit', $tag->id) }}">edit</a>
-                    <form action="#">
+                    <form 
+                    action="{{ route('admin.tag.delete',$tag->id) }}" 
+                    method="POST" >
+                      @method('DELETE')
                       @csrf
-                      <button >delete</button>
+                                            <button >delete</button>
+
                     </form>
                   </div>
                 </div>

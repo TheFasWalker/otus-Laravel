@@ -34,4 +34,14 @@ class TagsController extends Controller
         }
 
     }
+
+    public function delete(TagsServece $tagsServece, int $id)
+    {
+        try{
+            $tagsServece->deleteTagById($id);
+            return redirect()->route('admin.tags');
+        }catch (\Exception $e) {
+            return redirect()->back()->whith('error',$e->getMessage());
+        }
+    }
 }
