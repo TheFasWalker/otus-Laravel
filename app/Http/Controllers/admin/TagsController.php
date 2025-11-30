@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\tag\CreateTagRequest;
 use App\Services\TagsServece;
 use Illuminate\Http\Request;
 
@@ -19,5 +20,18 @@ class TagsController extends Controller
     public function edit(TagsServece $tagsServece, $id){
         $tag = $tagsServece->getTagById($id);
         return view('pages.admin.tags.edit', compact('tag'));
+    }
+
+    public function save(TagsServece $tagsServece, CreateTagRequest $request){
+        try{
+            $tag = $tagsServece->createTag($request->validated());
+            return redirect()->route('admin.tags')
+            ->with('success', 'Тег "' . $tag->name . '" успешно создан!');
+        }catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', $e->getMessage())
+                ->withInput();
+        }
+
     }
 }

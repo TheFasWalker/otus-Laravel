@@ -22,4 +22,16 @@ class TagsServece
     {
         return $this->tagRepo->getTagById($id);
     }
+
+    public function createTag(array $data):Tag
+    {
+        $existingTag = $this->tagRepo->findByName($data['name']);
+        if($existingTag){
+            throw new \Exception('Тег с таким названием уже существует');
+        }
+        return $this->tagRepo->createTag([
+            'name' => $data['name'],
+            'description' => $data['description'] ?? null,
+        ]);
+    }
 }

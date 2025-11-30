@@ -42,6 +42,7 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
         Route::get('/',[TagsController::class,'index'])->name('tags');
         Route::get('/create',[TagsController::class, 'create'])->name('tags.create');
         Route::get('{id}/edit',[TagsController::class, 'edit'])->name('tag.edit');
+        Route::post('/save',[TagsController::class, 'save'])->name('tag.save');
     });
     Route::group((['prefix'=>'/products']), function(){
         Route::get('/',[ProductsController::class,'index'])->name('products');

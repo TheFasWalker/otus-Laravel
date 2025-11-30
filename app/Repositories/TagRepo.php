@@ -16,4 +16,14 @@ class TagRepo
     {
         return Tag::findOrFail($id);
     }
+
+    public function createTag(array $data):Tag
+    {
+        return Tag::create($data);
+    }
+
+    public function findByName(string $name): ?Tag
+    {
+        return Tag::where('name', $name)->first();
+    }
 }
