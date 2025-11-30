@@ -11,4 +11,9 @@ class TagRepo
     {
         return Tag::all();
     }
+    
+    public function getTagById(int $id)
+    {
+        return Tag::findOrFail($id);
+    }
 }

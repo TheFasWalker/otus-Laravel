@@ -17,4 +17,9 @@ class TagsServece
     {
         return $this->tagRepo->getAllTags();
     }
+
+    public function getTagById(int $id)
+    {
+        return $this->tagRepo->getTagById($id);
+    }
 }

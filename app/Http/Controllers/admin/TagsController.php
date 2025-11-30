@@ -16,7 +16,8 @@ class TagsController extends Controller
     public function create(){
         return view('pages.admin.tags.create');
     }
-    public function edit(){
-        return view('pages.admin.tags.edit');
+    public function edit(TagsServece $tagsServece, $id){
+        $tag = $tagsServece->getTagById($id);
+        return view('pages.admin.tags.edit', compact('tag'));
     }
 }
