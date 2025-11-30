@@ -12,17 +12,19 @@
                     <a href="{{ route('admin.tags.create') }}">Добавить тэг</a>
                   </div>
                 </div>
-                <div class="grid grid-cols-[150px_1fr_100px] border-b dark:border-gray-700 p-2">
-                  <span class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white "> tagName</span> 
-                  <span class="px-4 py-3">tag description</span> 
+                @foreach ($tags as $tag)
+                                  <div class="grid grid-cols-[150px_1fr_100px] border-b dark:border-gray-700 p-2">
+                  <span class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white "> {{ $tag->name }}</span> 
+                  <span class="px-4 py-3">{{ $tag->description }}</span> 
                   <div class="grid grid-cols-2 items-center ">
-                    <a href="{{ route('admin.tag.edit', 1) }}">edit</a>
+                    <a href="{{ route('admin.tag.edit', $tag->id) }}">edit</a>
                     <form action="#">
                       @csrf
-                      <button>delete</button>
+                      <button >delete</button>
                     </form>
                   </div>
                 </div>
+                @endforeach
               </div>
             </div>
         </div>
