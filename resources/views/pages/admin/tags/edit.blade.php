@@ -1,6 +1,6 @@
 @extends('layouts.adminLayOut')
 @section('content')
-<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+
 <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
                 <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Редактирвоание тэга</h2>
@@ -36,5 +36,5 @@
                 </form>
         </div>
 </section>
-</section>
+
 @endsection
