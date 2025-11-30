@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\tag\CreateTagRequest;
+use App\Http\Requests\tag\UpdateTagRequest;
 use App\Services\TagsServece;
 use Illuminate\Http\Request;
 
@@ -43,5 +44,16 @@ class TagsController extends Controller
         }catch (\Exception $e) {
             return redirect()->back()->whith('error',$e->getMessage());
         }
+    }
+
+    public function update(TagsServece $tagsServece, UpdateTagRequest $request, int $id){
+        try{
+            $tag = $tagsServece->update($id,$request->validated());
+            return redirect()->route('admin.tags');
+
+        }catch (\Exception $e) {
+            return redirect()->back()->whith('error',$e->getMessage());
+        }
+
     }
 }

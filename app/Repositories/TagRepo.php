@@ -32,4 +32,9 @@ class TagRepo
         $tag= Tag::findOrFail($id);
         return $tag->delete();
     }
+
+    public function updateTagById(int $id, array $data){
+        $tag = Tag::findOrFail($id);
+        return $tag->update($data);
+    }
 }

@@ -4,7 +4,11 @@
 <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
                 <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Редактирвоание тэга</h2>
-                <form action="#" class=" flex flex-col gap-2">
+                <form action="{{ route('admin.tag.update', $tag->id) }}" 
+                        method="POST"
+                class=" flex flex-col gap-2"
+                >
+                @csrf
                         <div class="grid gap-4 grid-cols-[200px_1fr] sm:gap-6">
 
                                 <label class=" mb-2 text-sm font-medium text-gray-900 dark:text-white flex flex-col gap-1">
@@ -31,7 +35,7 @@
                         </div>
                         <button type="submit" 
                         class=" rounded-lgtext-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-                        Добавить тэг
+                        Сохранить изменения
                         </button>
                 </form>
         </div>

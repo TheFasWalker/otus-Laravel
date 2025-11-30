@@ -39,4 +39,14 @@ class TagsServece
     {
         return $this->tagRepo->deteleById($id);
     }
+    public function update(int $id, array $data):Tag
+    {
+        $existingTag = $this->tagRepo->findByName($data['name']);
+        if($existingTag && $existingTag->id != $id){
+            throw new \Exception('Тег с таким названием уже существует');
+
+        }
+        $this->tagRepo->updateTagById($id, $data);
+        return $this->tagRepo->getTagById($id);
+    }
 }
