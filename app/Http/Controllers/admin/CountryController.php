@@ -10,4 +10,10 @@ class CountryController extends Controller
     public function index(){
         return view('pages.admin.country.index');
     }
+        public function create(){
+        return view('pages.admin.country.create');
+    }
+        public function edit(){
+        return view('pages.admin.country.edit');
+    }
 }
