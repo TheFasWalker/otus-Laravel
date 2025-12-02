@@ -17,10 +17,10 @@ class CountryService
         return $this->countryRepo->getAllCountries();
     }
 
-    // public function getCountryById(int $id):Country
-    // {
-    //     return $this->countryRepo->getCountryById($id);
-    // }
+    public function getCountryById(int $id):Country
+    {
+        return $this->countryRepo->getCountryById($id);
+    }
 
     // public function updateCountryById(int $id, array $data)
     // {
