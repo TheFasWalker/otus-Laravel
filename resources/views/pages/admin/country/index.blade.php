@@ -12,18 +12,21 @@
                     <a href="{{ route('admin.country.create') }}">Добавить страну</a>
                   </div>
                 </div>
-                <div class="grid grid-cols-[150px_150px_1fr_100px] border-b dark:border-gray-700 p-2">
-                  <span class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white "> Название</span> 
-                  <span class="px-4 py-3">Сокращение</span> 
-                  <span class="px-4 py-3">Описание</span> 
-                  <div class="grid grid-cols-2 items-center ">
-                    <a href="{{ route('admin.country.edit', 1) }}">edit</a>
-                    <form action="#">
-                      @csrf
-                      <button>delete</button>
-                    </form>
+                @foreach ($allCountries as $country )
+                  <div class="grid grid-cols-[150px_150px_1fr_100px] border-b dark:border-gray-700 p-2">
+                    <span class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white "> {{ $country->name }}</span> 
+                    <span class="px-4 py-3">{{ $country->reduction }}</span> 
+                    <span class="px-4 py-3">{{ $country->description }}</span> 
+                    <div class="grid grid-cols-2 items-center ">
+                      <a href="{{ route('admin.country.edit', $country->id) }}">edit</a>
+                      <form action="#">
+                        @csrf
+                        <button>delete</button>
+                      </form>
+                    </div>
                   </div>
-                </div>
+                @endforeach
+                
               </div>
             </div>
         </div>
