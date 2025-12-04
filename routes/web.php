@@ -39,6 +39,7 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
         Route::get('{id}/edit',[CountryController::class,'edit'])->name('country.edit');
         Route::post('/save',[CountryController::class, 'save'])->name('country.save');
         Route::delete('{id}/delete',[CountryController::class,'delete'])->name('country.delete');
+        Route::post('{id}/update',[CountryController::class, 'update'])->name('country.update');
     });
     Route::group((['prefix'=>'/tags']), function(){
         Route::get('/',[TagsController::class,'index'])->name('tags');

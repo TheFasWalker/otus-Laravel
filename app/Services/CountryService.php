@@ -42,8 +42,9 @@ class CountryService
     {
         return $this->countryRepo->deleteCountryById($id);
     }
-    // public function updateCountryById(int $id, array $data)
-    // {
-    //    return $this->countryRepo->updateCountruById($id, $data);
-    // }
+    
+    public function updateCountryById(int $id, array $data):bool
+    {
+       return $this->countryRepo->updateCountryById( $id, $data);
+    }
 }

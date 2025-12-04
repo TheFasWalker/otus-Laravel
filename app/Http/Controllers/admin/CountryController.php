@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Country\CreateCountryRequest;
+use App\Http\Requests\Country\UpdateCountryRequest;
 use App\Services\CountryService;
 use Illuminate\Http\Request;
 
@@ -50,4 +51,13 @@ class CountryController extends Controller
 
         return redirect()->back()->with('error', 'Удаляемая старни не найдена');
     }
+    public function update(int $id,UpdateCountryRequest $request)
+    {
+        $updatedCountry = $this->countryService->updateCountryById($id,$request->validated());
+        if($updatedCountry){
+            return redirect()->back()->with('success','Обноеление данных прошло успешно');
+        }
+
+        return redirect()->back()->with('errors','Обновление данных прошло неудачно')->withInput();
+        }
 }

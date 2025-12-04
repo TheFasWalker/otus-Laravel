@@ -3,7 +3,7 @@
 <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
  <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
                 <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Редактирвоание страны</h2>
-                <form action="#" method="POST" class=" flex flex-col gap-2">
+                <form action="{{ route('admin.country.update', $country->id) }}" method="POST" class=" flex flex-col gap-2">
                     @csrf
                     <div class="grid gap-4 grid-cols-[1fr_200px] sm:gap-6">
 
@@ -41,7 +41,7 @@
                     </label>
                     <button type="submit" 
                     class=" rounded-lgtext-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-                    Добавить страну
+                    Сохранить изменения
                     </button>
                 </form>
         </div>
