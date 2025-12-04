@@ -28,11 +28,11 @@ class CountryRepo
     }
 
 
-    // public function deleteById(int $id):bool
-    // {
-    //     $country = $this->getCountryById($id);
-    //     return $country->delete();
-    // }
+    public function deleteCountryById(int $id):bool
+    {
+        $country = $this->getCountryById($id);
+        return $country->delete();
+    }
 
     // public function updateCountruById(int $id, array $data)
     // {

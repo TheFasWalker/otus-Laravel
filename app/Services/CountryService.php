@@ -21,11 +21,11 @@ class CountryService
     {
         return $this->countryRepo->getCountryById($id);
     }
+
     public function getCountryByName(string $name)
     {
         return $this->countryRepo->getCountryByName($name);
     }
-
 
     public function createCountry(array $data):Country
     {
@@ -36,6 +36,11 @@ class CountryService
         }
 
         return $this->countryRepo->createCountry($data);
+    }
+
+    public function deleteCountryById(int $id):bool
+    {
+        return $this->countryRepo->deleteCountryById($id);
     }
     // public function updateCountryById(int $id, array $data)
     // {

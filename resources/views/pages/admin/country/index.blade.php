@@ -19,7 +19,8 @@
                     <span class="px-4 py-3">{{ $country->description }}</span> 
                     <div class="grid grid-cols-2 items-center ">
                       <a href="{{ route('admin.country.edit', $country->id) }}">edit</a>
-                      <form action="#">
+                      <form action="{{ route('admin.country.delete', $country->id) }}" method="POST">
+                        @method('DELETE')
                         @csrf
                         <button>delete</button>
                       </form>

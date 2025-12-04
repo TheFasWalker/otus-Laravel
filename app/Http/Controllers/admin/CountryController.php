@@ -40,4 +40,14 @@ class CountryController extends Controller
         $country = $this->countryService->getCountryById($id);
         return view('pages.admin.country.edit', compact('country'));
     }
+
+    public function delete($id)
+    {
+        $deleteCountry = $this->countryService->deleteCountryById($id);
+        if($deleteCountry){
+            return redirect()->route('admin.country')->with('success','Старни успешно удалена');
+        }
+
+        return redirect()->back()->with('error', 'Удаляемая старни не найдена');
+    }
 }
