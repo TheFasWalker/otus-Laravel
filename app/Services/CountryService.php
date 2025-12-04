@@ -21,7 +21,22 @@ class CountryService
     {
         return $this->countryRepo->getCountryById($id);
     }
+    public function getCountryByName(string $name)
+    {
+        return $this->countryRepo->getCountryByName($name);
+    }
 
+
+    public function createCountry(array $data):Country
+    {
+        $existingCountry = $this->countryRepo->getCountryByName($data['name']);
+
+        if($existingCountry){
+            throw new \Exception('Страна с таким названием уже существует');
+        }
+
+        return $this->countryRepo->createCountry($data);
+    }
     // public function updateCountryById(int $id, array $data)
     // {
     //    return $this->countryRepo->updateCountruById($id, $data);

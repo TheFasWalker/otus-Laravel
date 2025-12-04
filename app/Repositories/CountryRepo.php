@@ -17,6 +17,16 @@ class CountryRepo
     {
         return Country::findOrFail($id);
     }
+    public function getCountryByName(string $name)
+    {
+        Country::where('name', $name)->first();
+    }
+
+    public function createCountry(array $data):Country
+    {
+        return Country::create($data);
+    }
+
 
     // public function deleteById(int $id):bool
     // {
