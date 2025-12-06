@@ -3,7 +3,7 @@
 use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\TagsController;
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,7 +50,7 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
         Route::post('{id}/update',[TagsController::class,'update'])->name('tag.update');
     });
     Route::group((['prefix'=>'/products']), function(){
-        Route::get('/',[ProductsController::class,'index'])->name('products');
+        Route::get('/',[ProductController::class,'index'])->name('products');
     });
 
 
