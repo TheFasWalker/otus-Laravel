@@ -27,7 +27,7 @@
                     <div class="grid grid-cols-2 items-center ">
                       <a href="#">edit</a>
                       <form 
-                      action="#" 
+                      action="{{ route('admin.products.delete', $product->id) }}" 
                       method="POST" >
                         @method('DELETE')
                         @csrf

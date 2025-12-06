@@ -13,4 +13,10 @@ class ProductRepo
         return Product::all();
     }
 
+    public function deleteProductById(int $id):bool
+    {
+        $productToDelete = Product::findOrFail($id);
+        return $productToDelete->delete();
+    }
+
 }

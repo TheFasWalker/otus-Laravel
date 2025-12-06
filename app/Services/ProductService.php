@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Product;
 use App\Repositories\ProductRepo;
 
 class ProductService 
@@ -14,6 +15,11 @@ class ProductService
     public function getAllProducts()
     {
         return $this->productRepo->getAllProducts();
+    }
+    
+    public function deleteProductById(int $id):bool
+    {
+        return $this->productRepo->deleteProductById($id);
     }
 
     
