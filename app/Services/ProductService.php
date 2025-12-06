@@ -22,5 +22,9 @@ class ProductService
         return $this->productRepo->deleteProductById($id);
     }
 
+    public function createProduct(array $data):Product
+    {
+        return $this->productRepo->createProduct($data);
+    }
     
 }

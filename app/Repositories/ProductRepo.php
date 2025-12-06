@@ -19,4 +19,14 @@ class ProductRepo
         return $productToDelete->delete();
     }
 
+    public function createProduct(array $data):Product
+    {
+        return Product::create($data);
+    }
+
+    public function findProductById(int $id): Product
+    {
+        return Product::findOrFail($id);
+    }
+
 }

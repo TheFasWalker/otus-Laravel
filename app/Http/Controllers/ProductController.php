@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\Tag;
@@ -41,9 +42,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
-        dd($request);
+        $data= $request->validated();
+        dd($data);
     }
 
     /**
