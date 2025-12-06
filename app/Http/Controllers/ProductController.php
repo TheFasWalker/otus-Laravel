@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Product;
+use App\Models\Tag;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -31,7 +33,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $countries = Country::all();
+        $tags = Tag::all();
+        return view('pages.admin.products.create',compact('countries','tags'));
     }
 
     /**
@@ -39,7 +43,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

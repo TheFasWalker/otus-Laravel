@@ -51,6 +51,8 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
     });
     Route::group((['prefix'=>'/products']), function(){
         Route::get('/',[ProductController::class,'index'])->name('products');
+        Route::get('/create',[ProductController::class, 'create'])->name('products.create');
+        Route::post('/store',[ProductController::class, 'store'])->name('product.store');
         Route::delete('{id}/delete', [ProductController::class, 'destroy'])->name('products.delete');
     });
 

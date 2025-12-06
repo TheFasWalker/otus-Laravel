@@ -11,7 +11,7 @@
                   <span class="font-bold p-2">Тэги</span>
                   <span class="font-bold p-2">Описание</span>
                   <div class="flex items-center justify-center">
-                    <a href="#">Добавить продукт</a>
+                    <a href="{{ route('admin.products.create') }}">Добавить продукт</a>
                   </div>
                 </div>
                 @foreach ($allProducts as $product)
