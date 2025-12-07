@@ -35,7 +35,7 @@ class ProductSeeder extends Seeder
         for ($i = 0; $i < $countCreatingElem; $i++) {
             $product = Product::create([
                 'name' => $faker->words(rand(2, 5), true),
-                'description' => $faker->words(rand(10)),
+                'description' => $faker->words(rand(10,20),true),
                 'preview' => $faker->randomElement([
                     'product1.jpg',
                     'product2.jpg',
@@ -47,6 +47,7 @@ class ProductSeeder extends Seeder
                 'country_id' => $countries->isNotEmpty() ? $countries->random()->id : $countryId,
                 'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
                 'updated_at' => now(),
+                'user_id'=>1
             ]);
             
             if ($tags->isNotEmpty() && rand(0, 1)) { 

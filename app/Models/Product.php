@@ -12,7 +12,8 @@ class Product extends Model
         'name',
         'description',
         'preview',
-        'country_id'
+        'country_id',
+        'user_id'
     ];
 
     public function country():BelongsTo
@@ -23,6 +24,10 @@ class Product extends Model
     public function tags():BelongsToMany
     {
         return $this->belongsToMany(Tag::class,'product_tag');
+    }
+    public function author():BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     
