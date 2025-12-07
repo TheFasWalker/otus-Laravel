@@ -26,7 +26,7 @@ class CountryController extends Controller
         return view('pages.admin.country.create');
     }
 
-    public function save(CreateCountryRequest $request)
+    public function store(CreateCountryRequest $request)
     {
         try{
             $country = $this->countryService->createCountry($request->validated());

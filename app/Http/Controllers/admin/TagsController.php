@@ -23,7 +23,7 @@ class TagsController extends Controller
         return view('pages.admin.tags.edit', compact('tag'));
     }
 
-    public function save(TagsServece $tagsServece, CreateTagRequest $request){
+    public function store(TagsServece $tagsServece, CreateTagRequest $request){
         try{
             $tag = $tagsServece->createTag($request->validated());
             return redirect()->route('admin.tags')
