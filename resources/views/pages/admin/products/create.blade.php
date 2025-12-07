@@ -53,6 +53,15 @@
 
                                       </select>
                                     </label>
+                                  @if ($errors->any())
+                                      <div class="mb-4 p-4 text-red-700 bg-red-100 rounded-lg">
+                                          <ul>
+                                              @foreach ($errors->all() as $error)
+                                                  <li>{{ $error }}</li>
+                                              @endforeach
+                                          </ul>
+                                      </div>
+                                  @endif
                         </div>
                         <button type="submit" 
                         class=" rounded-lgtext-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">

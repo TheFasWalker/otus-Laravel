@@ -26,7 +26,7 @@ class CreateProductRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'min:5'
+                'min:3'
             ],
             'description'=>[
                 'nullable',
@@ -36,7 +36,7 @@ class CreateProductRequest extends FormRequest
                 'nullable',
                 'string'
             ],
-            'counry_id'=>[
+            'country_id'=>[
                 'required',
                 'integer',
                 'exists:countries,id'
