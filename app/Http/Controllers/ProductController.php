@@ -65,7 +65,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $tags = Tag::all();
+        $countries = Country::all();
+        return view('pages.admin.products.edit',compact('product','tags','countries'));
     }
 
     /**

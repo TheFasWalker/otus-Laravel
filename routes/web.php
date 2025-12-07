@@ -53,6 +53,7 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
         Route::get('/',[ProductController::class,'index'])->name('products');
         Route::get('/create',[ProductController::class, 'create'])->name('products.create');
         Route::post('/store',[ProductController::class, 'store'])->name('product.store');
+        Route::get('{product}/edit',[ProductController::class, 'edit'])->name('product.edit');
         Route::delete('{id}/delete', [ProductController::class, 'destroy'])->name('products.delete');
     });
 

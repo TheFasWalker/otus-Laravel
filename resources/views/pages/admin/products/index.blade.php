@@ -25,7 +25,7 @@
                     </div>
                     <span class="px-4 py-3">{{ $product->description}}</span> 
                     <div class="grid grid-cols-2 items-center ">
-                      <a href="#">edit</a>
+                      <a href="{{ route('admin.product.edit', $product->id) }}">edit</a>
                       <form 
                       action="{{ route('admin.products.delete', $product->id) }}" 
                       method="POST" >
