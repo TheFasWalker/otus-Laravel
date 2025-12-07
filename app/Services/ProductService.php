@@ -24,7 +24,14 @@ class ProductService
 
     public function createProduct(array $data):Product
     {
-        return $this->productRepo->createProduct($data);
+        $product = $this->productRepo->createProduct($data);
+        
+        if(!empty($data['tags'])){
+            $product->tags()->attach($data['tags']);
+        }
+
+        return $product;
+    
     }
     
 }
