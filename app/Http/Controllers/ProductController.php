@@ -46,6 +46,8 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $data= $request->validated();
+        $data['user_id'] = auth()->id();
+
         $createProduct = $this->productService->createProduct($data);
         if($createProduct){
             return(redirect()->route('admin.products')->with('success','Товар создан успешно'));
