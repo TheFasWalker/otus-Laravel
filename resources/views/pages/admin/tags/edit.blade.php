@@ -9,6 +9,7 @@
                 class=" flex flex-col gap-2"
                 >
                 @csrf
+                @method('PUT')
                         <div class="grid gap-4 grid-cols-[200px_1fr] sm:gap-6">
 
                                 <label class=" mb-2 text-sm font-medium text-gray-900 dark:text-white flex flex-col gap-1">

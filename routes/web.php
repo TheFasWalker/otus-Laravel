@@ -39,7 +39,7 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
         Route::get('{id}/edit',[CountryController::class,'edit'])->name('country.edit');
         Route::post('/save',[CountryController::class, 'save'])->name('country.save');
         Route::delete('{id}/delete',[CountryController::class,'delete'])->name('country.delete');
-        Route::post('{id}/update',[CountryController::class, 'update'])->name('country.update');
+        Route::put('{id}/update',[CountryController::class, 'update'])->name('country.update');
     });
     Route::group((['prefix'=>'/tags']), function(){
         Route::get('/',[TagsController::class,'index'])->name('tags');
@@ -47,7 +47,7 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
         Route::get('{id}/edit',[TagsController::class, 'edit'])->name('tag.edit');
         Route::post('/save',[TagsController::class, 'save'])->name('tag.save');
         Route::delete('{id}/delete',[TagsController::class,'delete'])->name('tag.delete');
-        Route::post('{id}/update',[TagsController::class,'update'])->name('tag.update');
+        Route::put('{id}/update',[TagsController::class,'update'])->name('tag.update');
     });
     Route::group((['prefix'=>'/products']), function(){
         Route::get('/',[ProductController::class,'index'])->name('products');
