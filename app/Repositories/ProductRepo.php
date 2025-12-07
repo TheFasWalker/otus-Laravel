@@ -28,5 +28,9 @@ class ProductRepo
     {
         return Product::findOrFail($id);
     }
+    public function updateProduct(Product $product,array $data):bool
+    {
+        return $product->update($data); 
+    }
 
 }

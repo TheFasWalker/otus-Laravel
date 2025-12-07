@@ -33,5 +33,16 @@ class ProductService
         return $product;
     
     }
+
+    public function updateProduct(Product $product, array $data):Product
+    {
+        $this->productRepo->updateProduct($product, $data);
+                if (isset($data['tags'])) {
+            $product->tags()->sync($data['tags']);
+        } else {
+            $product->tags()->detach();
+        }
+        return $product->fresh()->load('tags');
+    }
     
 }

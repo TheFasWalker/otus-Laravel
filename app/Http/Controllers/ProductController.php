@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\Tag;
@@ -73,9 +74,22 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        try {
+            $data = $request->validated();
+            
+            $this->productService->updateProduct($product, $data);
+            
+            return redirect()->route('admin.products')
+                ->with('success', 'Продукт успешно обновлен!');
+                
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Ошибка при обновлении продукта: ' . $e->getMessage());
+            
+        }
     }
 
     /**
