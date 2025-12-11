@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\Country;
+use Illuminate\Database\Eloquent\Collection;
+
+class CountryRepo
+{
+
+    public function getAllCountries():Collection
+    {
+        return Country::all();
+    }
+
+    public function getCountryById(int $id): Country
+    {
+        return Country::findOrFail($id);
+    }
+    public function getCountryByName(string $name)
+    {
+        Country::where('name', $name)->first();
+    }
+
+    public function createCountry(array $data):Country
+    {
+        return Country::create($data);
+    }
+
+
+    public function deleteCountryById(int $id):bool
+    {
+        $country = $this->getCountryById($id);
+        return $country->delete();
+    }
+
+    public function updateCountryById(int $id, array $data):bool
+    {
+        $country = $this->getCountryById($id);
+        return $country->update($data);
+    }
+}
