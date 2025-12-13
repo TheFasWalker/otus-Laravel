@@ -7,6 +7,7 @@ use App\Http\Requests\tag\CreateTagRequest;
 use App\Http\Requests\tag\UpdateTagRequest;
 use App\Services\TagsServece;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TagsController extends Controller
 {
@@ -16,14 +17,17 @@ class TagsController extends Controller
     }
     
     public function create(){
+        Gate::authorize('only-admin');
         return view('pages.admin.tags.create');
     }
     public function edit(TagsServece $tagsServece, $id){
+        Gate::authorize('only-admin');
         $tag = $tagsServece->getTagById($id);
         return view('pages.admin.tags.edit', compact('tag'));
     }
 
     public function store(TagsServece $tagsServece, CreateTagRequest $request){
+        Gate::authorize('only-admin');
         try{
             $tag = $tagsServece->createTag($request->validated());
             return redirect()->route('admin.tags')
@@ -38,6 +42,7 @@ class TagsController extends Controller
 
     public function delete(TagsServece $tagsServece, int $id)
     {
+        Gate::authorize('only-admin');
         try{
             $tagsServece->deleteTagById($id);
             return redirect()->route('admin.tags');
@@ -47,6 +52,7 @@ class TagsController extends Controller
     }
 
     public function update(TagsServece $tagsServece, UpdateTagRequest $request, int $id){
+        Gate::authorize('only-admin');
         try{
             $tag = $tagsServece->update($id,$request->validated());
             return redirect()->route('admin.tags');

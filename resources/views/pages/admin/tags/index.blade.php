@@ -9,7 +9,10 @@
                   <span class="font-bold p-2">Название тэга</span>
                   <span class="font-bold p-2"> Описание</span>
                   <div class="flex items-center justify-center">
-                    <a href="{{ route('admin.tags.create') }}">Добавить тэг</a>
+                  @can('only-admin')
+                      <a href="{{ route('admin.tags.create') }}">Добавить тэг</a>
+                  @endcan
+
                   </div>
                 </div>
                 @foreach ($tags as $tag)
@@ -17,7 +20,8 @@
                   <span class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white "> {{ $tag->name }}</span> 
                   <span class="px-4 py-3">{{ $tag->description }}</span> 
                   <div class="grid grid-cols-2 items-center ">
-                    <a href="{{ route('admin.tag.edit', $tag->id) }}">edit</a>
+                    @can('only-admin')
+                       <a href="{{ route('admin.tag.edit', $tag->id) }}">edit</a>
                     <form 
                     action="{{ route('admin.tag.delete',$tag->id) }}" 
                     method="POST" >
@@ -26,6 +30,8 @@
                                             <button >delete</button>
 
                     </form>
+                    @endcan
+                   
                   </div>
                 </div>
                 @endforeach
