@@ -34,5 +34,11 @@ class AuthServiceProvider extends ServiceProvider
             }
             return false;
         });
+        Gate::define('admin-and-manager',function(User $user){
+            return $user->role_id === 1 || $user->role_id === 3;
+        });
+        Gate::define('admin-content',function(User $user){
+            return $user->role_id === 1 || $user->role_id === 4;
+        });
     }
 }

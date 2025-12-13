@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,6 +65,10 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
         Route::put('{product}/update',[ProductController::class, 'update'])->name('product.update');
         Route::delete('{id}/delete', [ProductController::class, 'destroy'])->name('products.delete');
     });
+    Route::get('seo', function(){
+        Gate::authorize('admin-content');
+        return 'seoPage';
+    })->name('seo');
 
 
 });

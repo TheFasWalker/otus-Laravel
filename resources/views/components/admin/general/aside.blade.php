@@ -6,16 +6,24 @@
         <ul
           class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"
         >
+        @can('admin-and-manager')
+          <x-general.aside.linkComponent
+            text="Страны производители"
+            :href=" route('admin.country') " />
+          <x-general.aside.linkComponent
+            text="Список тэгов"
+            :href=" route('admin.tags') " />        
+          <x-general.aside.linkComponent
+            text="Список продуктов"
+            :href=" route('admin.products') " />
+        @endcan
+        @can('admin-content')
+          <x-general.aside.linkComponent
+            text="Сео наполнение"
+            :href=" route('admin.seo') " />
 
-        <x-general.aside.linkComponent
-          text="Страны производители"
-          :href=" route('admin.country') " />
-        <x-general.aside.linkComponent
-          text="Список тэгов"
-          :href=" route('admin.tags') " />        
-        <x-general.aside.linkComponent
-          text="Список продуктов"
-          :href=" route('admin.products') " />
+        @endcan
+
         </ul>
 
       </div>
