@@ -7,6 +7,7 @@ use App\Http\Requests\Country\CreateCountryRequest;
 use App\Http\Requests\Country\UpdateCountryRequest;
 use App\Services\CountryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CountryController extends Controller
 {
@@ -23,11 +24,13 @@ class CountryController extends Controller
     }
     
     public function create(){
+        Gate::authorize('only-admin');
         return view('pages.admin.country.create');
     }
 
     public function store(CreateCountryRequest $request)
     {
+        Gate::authorize('only-admin');
         try{
             $country = $this->countryService->createCountry($request->validated());
             return redirect()->route('admin.country')->with('success','Страна с названием "' . $country->name . '" успешно добавлена в базу');
@@ -38,12 +41,14 @@ class CountryController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('only-admin');
         $country = $this->countryService->getCountryById($id);
         return view('pages.admin.country.edit', compact('country'));
     }
 
     public function delete($id)
     {
+        Gate::authorize('only-admin');
         $deleteCountry = $this->countryService->deleteCountryById($id);
         if($deleteCountry){
             return redirect()->route('admin.country')->with('success','Старни успешно удалена');
@@ -53,6 +58,7 @@ class CountryController extends Controller
     }
     public function update(int $id,UpdateCountryRequest $request)
     {
+        Gate::authorize('only-admin');
         $updatedCountry = $this->countryService->updateCountryById($id,$request->validated());
         if($updatedCountry){
             return redirect()->back()->with('success','Обноеление данных прошло успешно');
