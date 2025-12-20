@@ -8,8 +8,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-
+use TelegramBot\Api\BotApi;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,6 +39,11 @@ Route::get('login_as/{id}', function($id){
     Auth::login($user);
     return 'loggen as ' . $user->name;
 });
+Route::get('/logger', function(){
+   Log::channel('telegram')->warning('Кто то зашёл на старницу logger');
+    return 'opened logger page';
+});
+
 
 Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verified']],function(){
     Route::get('/',[HomeController::class,'index'])->name('home');
