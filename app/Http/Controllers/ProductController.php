@@ -107,7 +107,7 @@ class ProductController extends Controller
             return redirect()->route('admin.products')->with('success','Товар успешно удалён');
 
         }catch (\Exception $e){
-            return redirect()->back()->whith('error',$e->getMessage());
+            return redirect()->back()->with('error',$e->getMessage());
         }
     }
 }
