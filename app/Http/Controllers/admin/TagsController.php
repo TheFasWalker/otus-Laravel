@@ -47,7 +47,7 @@ class TagsController extends Controller
             $tagsServece->deleteTagById($id);
             return redirect()->route('admin.tags');
         }catch (\Exception $e) {
-            return redirect()->back()->whith('error',$e->getMessage());
+            return redirect()->back()->with('error',$e->getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ class TagsController extends Controller
             return redirect()->route('admin.tags');
 
         }catch (\Exception $e) {
-            return redirect()->back()->whith('error',$e->getMessage());
+            return redirect()->back()->with('error',$e->getMessage());
         }
 
     }
