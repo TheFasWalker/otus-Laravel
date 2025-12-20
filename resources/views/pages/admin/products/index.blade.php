@@ -26,15 +26,17 @@
                     <span class="px-4 py-3">{{ $product->description}}</span> 
                     <span class="px-4 py-3">{{ $product->author->name}}</span> 
                     <div class="grid grid-cols-2 items-center ">
-                      <a href="{{ route('admin.product.edit', $product->id) }}">edit</a>
-                      <form 
-                      action="{{ route('admin.products.delete', $product->id) }}" 
-                      method="POST" >
-                        @method('DELETE')
-                        @csrf
-                      <button >delete</button>
+                      @can('admin-author', $product)
+                        <a href="{{ route('admin.product.edit', $product->id) }}">edit</a>
+                        <form 
+                        action="{{ route('admin.products.delete', $product->id) }}" 
+                        method="POST" >
+                          @method('DELETE')
+                          @csrf
+                        <button >delete</button>
 
-                      </form>
+                        </form>
+                      @endcan
                   </div>
                 </div>
                 @endforeach

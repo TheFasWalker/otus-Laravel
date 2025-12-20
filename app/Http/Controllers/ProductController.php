@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -68,6 +69,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        Gate::authorize('admin-author', $product);
         $tags = Tag::all();
         $countries = Country::all();
         return view('pages.admin.products.edit',compact('product','tags','countries'));

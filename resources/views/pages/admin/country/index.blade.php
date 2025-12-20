@@ -9,7 +9,9 @@
                   <span class="font-bold p-2"> Сокращение</span>
                   <span class="font-bold p-2"> Описание</span>
                   <div class="flex items-center justify-center">
+                    @can('only-admin')
                     <a href="{{ route('admin.country.create') }}">Добавить страну</a>
+                    @endcan
                   </div>
                 </div>
                 @foreach ($allCountries as $country )
@@ -18,12 +20,15 @@
                     <span class="px-4 py-3">{{ $country->reduction }}</span> 
                     <span class="px-4 py-3">{{ $country->description }}</span> 
                     <div class="grid grid-cols-2 items-center ">
-                      <a href="{{ route('admin.country.edit', $country->id) }}">edit</a>
-                      <form action="{{ route('admin.country.delete', $country->id) }}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button>delete</button>
-                      </form>
+                      @can('only-admin')
+                        <a href="{{ route('admin.country.edit', $country->id) }}">edit</a>
+                        <form action="{{ route('admin.country.delete', $country->id) }}" method="POST">
+                          @method('DELETE')
+                          @csrf
+                          <button>delete</button>
+                        </form>
+                      @endcan
+                      
                     </div>
                   </div>
                 @endforeach
