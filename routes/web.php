@@ -4,9 +4,11 @@ use App\Http\Controllers\admin\CountryController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\TagsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\User\ProductsController as UserProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Database\Seeders\ProductSeeder;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +26,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/', function(){
     return view('pages.HomePage');
 })->name('home');
-Route::get('/catalog',function(){
-    return view('pages.CatalogPage');
-})->name('catalog');
+Route::get('/catalog', [UserProductsController::class, 'index'])->name('catalog');
 Route::get('/product',function(){
     return view('pages.ProductPage');
 })->name('product.page');
