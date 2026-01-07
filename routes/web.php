@@ -9,9 +9,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Database\Seeders\ProductSeeder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -71,6 +71,31 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
     })->name('seo');
 
 
+});
+Route::get('/test-memcached', function () {
+    Cache::put('cache_test', 'Cache works!', 60);
+    $cacheValue = Cache::get('cache_test');
+    
+    session(['session_test' => 'Session works!']);
+    $sessionValue = session('session_test');
+    
+    return response()->json([
+        'cache' => [
+            'driver' => config('cache.default'),
+            'test_value' => $cacheValue,
+        ],
+        'session' => [
+            'driver' => config('session.driver'),
+            'test_value' => $sessionValue,
+            'lifetime' => config('session.lifetime'),
+        ],
+        'memcached' => [
+            'extension_loaded' => extension_loaded('memcached'),
+            'host' => config('cache.stores.memcached.servers.0.host'),
+            'port' => config('cache.stores.memcached.servers.0.port'),
+        ],
+        'timestamp' => now()->toDateTimeString(),
+    ]);
 });
 
 require __DIR__.'/auth.php';

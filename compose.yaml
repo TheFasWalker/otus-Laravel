@@ -23,6 +23,7 @@ services:
             - sail
         depends_on:
             - mysql
+            - memcached
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -48,6 +49,14 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    memcached:  
+        image: 'memcached:alpine'
+        ports:
+            - '${MEMCACHED_PORT:-11211}:11211'
+        networks:
+            - sail
+        command: memcached -m 64
+
 networks:
     sail:
         driver: bridge
