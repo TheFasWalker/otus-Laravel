@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\TagsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\OnlyAdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -49,19 +50,24 @@ Route::group(['prefix'=>'/admin','as'=>'admin.','middleware' => ['auth','verifie
     Route::get('/',[HomeController::class,'index'])->name('home');
     Route::group(['prefix'=>'/country'],function(){
         Route::get('/',[CountryController::class,'index'])->name('country');
-        Route::get('/create',[CountryController::class,'create'])->name('country.create');
-        Route::get('{id}/edit',[CountryController::class,'edit'])->name('country.edit');
-        Route::post('/store',[CountryController::class, 'store'])->name('country.store');
-        Route::delete('{id}/delete',[CountryController::class,'delete'])->name('country.delete');
-        Route::put('{id}/update',[CountryController::class, 'update'])->name('country.update');
+        Route::group(['middleware'=>['auth',OnlyAdminMiddleware::class]],function(){
+            Route::get('/create',[CountryController::class,'create'])->name('country.create');
+            Route::get('{id}/edit',[CountryController::class,'edit'])->name('country.edit');
+            Route::post('/store',[CountryController::class, 'store'])->name('country.store');
+            Route::delete('{id}/delete',[CountryController::class,'delete'])->name('country.delete');
+            Route::put('{id}/update',[CountryController::class, 'update'])->name('country.update');
+        });
     });
     Route::group((['prefix'=>'/tags']), function(){
         Route::get('/',[TagsController::class,'index'])->name('tags');
-        Route::get('/create',[TagsController::class, 'create'])->name('tags.create');
-        Route::get('{id}/edit',[TagsController::class, 'edit'])->name('tag.edit');
-        Route::post('/store',[TagsController::class, 'store'])->name('tag.store');
-        Route::delete('{id}/delete',[TagsController::class,'delete'])->name('tag.delete');
-        Route::put('{id}/update',[TagsController::class,'update'])->name('tag.update');
+        Route::group(['middleware'=>['auth',OnlyAdminMiddleware::class]],function(){
+            Route::get('/create',[TagsController::class, 'create'])->name('tags.create');
+            Route::get('{id}/edit',[TagsController::class, 'edit'])->name('tag.edit');
+            Route::post('/store',[TagsController::class, 'store'])->name('tag.store');
+            Route::delete('{id}/delete',[TagsController::class,'delete'])->name('tag.delete');
+            Route::put('{id}/update',[TagsController::class,'update'])->name('tag.update');
+        });
+        
     });
     Route::group((['prefix'=>'/products']), function(){
         Route::get('/',[ProductController::class,'index'])->name('products');
