@@ -14,6 +14,7 @@ class TelegramLogger extends AbstractProcessingHandler
     private $chatId;
     private $projectName;
     private $environment;
+    private BotApi $bot;
 
     public function __construct(array $config)
     {
@@ -25,22 +26,28 @@ class TelegramLogger extends AbstractProcessingHandler
         $this->chatId = $config['chat_id'];
         $this->projectName = $config['project_name'];
         $this->environment = $config['environment'];
+        $this->initializeBot();
+    }
+
+    private function initializeBot(): void
+    {
+        $this->bot = new BotApi($this->botToken);
     }
 
     protected function write(LogRecord $record): void
     {
         try {
-            $bot = new BotApi($this->botToken);
-            
             $message = $this->formatMessage($record);
             
-            $bot->sendMessage(
+            $this->bot->sendMessage(
                 $this->chatId,
                 $message,
                 'HTML'
             );
         } catch (\Exception $e) {
-            Log::error('Telegram logger failed: ' . $e->getMessage());
+            if (function_exists('error_log')) {
+                error_log('Telegram logger failed: ' . $e->getMessage());
+            }
         }
     }
 
@@ -50,7 +57,20 @@ class TelegramLogger extends AbstractProcessingHandler
         $message = $record->message;
         $context = !empty($record->context) ? json_encode($record->context, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : '';
         $datetime = $record->datetime->format('Y-m-d H:i:s');
-        
+        $path = 'UNKNOWN';
+        try {
+            if (!app()->runningInConsole() && request() && request()->url()) {
+                $path = parse_url(request()->url(), PHP_URL_PATH) ?? 'WEB';
+            } elseif (app()->runningInConsole()) {
+                $path = 'CONSOLE';
+                if (isset($_SERVER['argv']) && count($_SERVER['argv']) > 1) {
+                    $command = implode(' ', array_slice($_SERVER['argv'], 1));
+                    $path .= ": " . $command;
+                }
+            }
+        } catch (\Throwable $e) {
+            $path = 'ERROR_GETTING_PATH';
+        }
         return sprintf(
             "🚨 <b>%s</b> | %s\n" .
             "📱 <b>Проект:</b> %s\n" .
