@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8aa5509d55b12e1ce3cd6a0e3d94ada6",
+    "content-hash": "e382b03051a008d539c1560eb86d2952",
     "packages": [
         {
             "name": "brick/math",
@@ -507,6 +507,36 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "fast/otus-laravel-package",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "/var/www/otus-package",
+                "reference": "100476a9a94cf1097f6c28d46a9ea9c57a07e925"
+            },
+            "require": {
+                "illuminate/support": "^12.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Fast\\OtusLaravelPackage\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fast\\OtusLaravelPackage\\": "src/"
+                }
+            },
+            "description": "my first packege",
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
         },
         {
             "name": "fruitcake/php-cors",
@@ -8553,13 +8583,15 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {},
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "fast/otus-laravel-package": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
