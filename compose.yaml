@@ -19,6 +19,7 @@ services:
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html'
+            - '../otus-laravel-package:/var/www/otus-package'
         networks:
             - sail
         depends_on:
