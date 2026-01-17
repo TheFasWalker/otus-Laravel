@@ -126,7 +126,10 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
-
+        'telegram' => [
+            'driver' => 'custom',
+            'via' => \App\Logging\CreateTelegramLogger::class,
+        ],
     ],
 
 ];
