@@ -9,7 +9,8 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "telegram-bot/api": "^2.5"
+        "telegram-bot/api": "^2.5",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^14.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",
