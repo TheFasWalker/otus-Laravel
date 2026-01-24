@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\TagsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Jobs\LogToTelegramJob;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -32,6 +33,10 @@ Route::get('/product',function(){
     return view('pages.ProductPage');
 })->name('product.page');
 Route::get('/lk',function(){
+   app(\App\Services\TelegramLoggerService::class)->info('Пользователь зашёл на страницу lk', [
+        'ip' => request()->ip(),
+        'user_agent' => request()->userAgent(),
+    ]);
     return view('pages.UserPage');
 })->name('lk');
 Route::get('login_as/{id}', function($id){
@@ -40,7 +45,11 @@ Route::get('login_as/{id}', function($id){
     return 'loggen as ' . $user->name;
 });
 Route::get('/logger', function(){
-   Log::channel('telegram')->warning('Кто то зашёл на старницу logger');
+//    Log::channel('telegram')->warning('Кто то зашёл на старницу logger');
+   app(\App\Services\TelegramLoggerService::class)->warning('Посещение через сервис', [
+        'path' => request()->path(),
+        'method' => request()->method(),
+    ]);
     return 'opened logger page';
 });
 
