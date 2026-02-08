@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\admin\api\TagController;
-use App\Http\Controllers\admin\api\TagsController;
 use Illuminate\Support\Facades\Route;
 
 // Route::prefix('api')->group(function(){
@@ -11,5 +10,5 @@ Route::group([
     'middleware'=>['auth:api']
 
 ],function(){
-    Route::apiResource('api/tags', TagController::class);
+    Route::apiResource('tags', TagController::class);
 });

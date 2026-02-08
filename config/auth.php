@@ -41,7 +41,8 @@ return [
             'provider' => 'users',
         ],
         'api'=>[
-            'driver'=>'custom-token'
+            'driver'=>'custom-token',
+            'provider' => 'users'
         ]
     ],
 
