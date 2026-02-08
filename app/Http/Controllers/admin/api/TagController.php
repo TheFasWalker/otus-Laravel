@@ -91,8 +91,23 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tag $tag)
+    public function destroy(TagsServece $tagsServece, int $id)
     {
-        //
+        Gate::authorize('only-admin');
+        try{
+            $tagsServece->deleteTagById($id);
+            return response()->json([
+                'success' => true,
+                'message' => 'Тег успешно Удалён!',
+            ], 201);
+        }catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ошибка при удалении тега',
+                    'error' => $e->getMessage(),
+                    'code' => 500,
+                    'timestamp' => now()->toISOString()
+                ], 500);
+            }
     }
 }
