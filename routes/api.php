@@ -7,5 +7,9 @@ use Illuminate\Support\Facades\Route;
 // Route::prefix('api')->group(function(){
 //     Route::get('/testApi',[TagsController::class, 'index'] );
 // });
+Route::group([
+    'middleware'=>['auth:api']
 
-Route::apiResource('api/tags', TagController::class);
+],function(){
+    Route::apiResource('api/tags', TagController::class);
+});
