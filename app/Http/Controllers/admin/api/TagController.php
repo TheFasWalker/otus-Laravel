@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\tag\CreateTagRequest;
 use App\Http\Resources\api\TagResource;
 use App\Http\Resources\api\TagsResource;
+use App\Http\Requests\tag\UpdateTagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -64,9 +65,27 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tag $tag)
+    public function update(TagsServece $tagsServece, UpdateTagRequest $request, int $id)
     {
-        //
+        Gate::authorize('only-admin');
+                try{
+            $tag = $tagsServece->update($id,$request->validated());
+            return response()->json([
+                'success' => true,
+                'message' => 'Тег "' . $tag->name . '" успешно обновлен!',
+                'data' => new TagResource($tag),
+                'created_at' => $tag->created_at,
+                'id' => $tag->id
+            ], 201);
+        }catch(\Exception $e){
+            return response()->json([
+                    'success' => false,
+                    'message' => 'Ошибка при обновлении тега',
+                    'error' => $e->getMessage(),
+                    'code' => 500,
+                    'timestamp' => now()->toISOString()
+                ], 500);
+            }
     }
 
     /**
