@@ -1,0 +1,67 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_IMAGE: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+  SAIL_BIN: vendor/bin/sail
+  YC_CLOUD_ID:   #  Cloud ID
+  YC_FOLDER_ID:   #  Folder ID
+  YC_ZONE: ru-central1-a
+
+cache:
+  paths:
+    - vendor/
+    - node_modules/
+
+
+test:
+  stage: test
+  image: composer:2
+  script:
+    - composer install --prefer-dist --no-Progress --no-interaction
+    - php artisan key:generate
+    - php artisan config:clear
+    - vendor/bin/phpunit 
+  only:
+    - main
+    - develop
+    - merge_requests
+
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $DOCKER_IMAGE -f Dockerfile .
+    - docker build -t ${CI_REGISTRY_IMAGE}:nginx-${CI_COMMIT_SHORT_SHA} -f Dockerfile.nginx .
+    - docker push $DOCKER_IMAGE
+    - docker push ${CI_REGISTRY_IMAGE}:nginx-${CI_COMMIT_SHORT_SHA}
+  only:
+    - main
+
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache curl jq python3 py3-pip
+    - pip3 install --upgrade pip
+    - pip3 install yandexcloud
+    - curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+    - export PATH="$PATH:/root/yandex-cloud/bin"
+    - yc config set service-account-key key.json
+    - yc config set cloud-id $YC_CLOUD_ID
+    - yc config set folder-id $YC_FOLDER_ID
+  script:
+    - chmod +x ./deploy/deploy.sh
+    - ./deploy/deploy.sh
+  only:
+    - main
+  environment:
+    name: production
+    url:  # домен
