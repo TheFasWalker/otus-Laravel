@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,16 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
-        Auth::viaRequest('custom-token',function(\Illuminate\Http\Request $request){
-            $token = $request->bearerToken();
-
-            if($token == null){
-                
-                return null;
-            }
-            return User::where('api_token', $token)->first();
-
-        });
+        Passport::tokensExpireIn(CarbonInterval::days(15));
+        Passport::refreshTokensExpireIn(CarbonInterval::days(30));
+        Passport::personalAccessTokensExpireIn(CarbonInterval::months(6));
     }
 }
